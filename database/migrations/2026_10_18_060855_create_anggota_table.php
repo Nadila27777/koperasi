@@ -1,25 +1,72 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Http\Controllers;
 
-return new class extends Migration
+use App\Models\Anggota;
+use Illuminate\Http\Request;
+
+class AnggotaController extends Controller
 {
-    public function up(): void
+    public function index()
     {
-        Schema::create('anggota', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('alamat');
-            $table->string('no_telepon', 15);
-            $table->date('tanggal_bergabung');
-            $table->timestamps();
-        });
+        $anggota = Anggota::latest()->get();
+
+        return view('anggota.index', compact('anggota'));
     }
 
-    public function down(): void
+    public function create()
     {
-        Schema::dropIfExists('anggota');
+        return view('anggota.create');
     }
-};
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_telepon' => 'required|string|max:15',
+            'tanggal_bergabung' => 'required|date',
+        ]);
+
+        Anggota::create($validated);
+
+        return redirect()
+            ->route('anggota.index')
+            ->with('success', 'Data anggota berhasil ditambahkan.');
+    }
+
+    public function show(Anggota $anggota)
+    {
+        return view('anggota.show', compact('anggota'));
+    }
+
+    public function edit(Anggota $anggota)
+    {
+        return view('anggota.edit', compact('anggota'));
+    }
+
+    public function update(Request $request, Anggota $anggota)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_telepon' => 'required|string|max:15',
+            'tanggal_bergabung' => 'required|date',
+        ]);
+
+        $anggota->update($validated);
+
+        return redirect()
+            ->route('anggota.index')
+            ->with('success', 'Data anggota berhasil diperbarui.');
+    }
+
+    public function destroy(Anggota $anggota)
+    {
+        $anggota->delete();
+
+        return redirect()
+            ->route('anggota.index')
+            ->with('success', 'Data anggota berhasil dihapus.');
+    }
+}
