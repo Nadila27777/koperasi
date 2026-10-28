@@ -1,73 +1,22 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Anggota | KoperasiKu</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+@extends('layouts.app')
 
-<nav class="navbar navbar-dark bg-primary px-4">
-    <a class="navbar-brand fw-bold" href="{{ route('anggota.index') }}">KoperasiKu</a>
-    <span class="text-white">Tambah Anggota</span>
-</nav>
+@section('content')
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>Tambah Anggota</h3>
+        <a href="{{ route('anggotas.index') }}" class="btn btn-secondary">
+            Kembali
+        </a>
+    </div>
 
-<div class="container mt-4">
-    <div class="card border-0 shadow-sm mx-auto" style="max-width: 700px;">
-        <div class="card-body p-4">
-            <h2 class="mb-1">Tambah Anggota</h2>
-            <p class="text-muted">Masukkan data anggota koperasi.</p>
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('anggota.store') }}" method="POST">
+    <div class="card shadow-sm">
+        <div class="card-header">Form Tambah Anggota</div>
+        <div class="card-body">
+            <form action="{{ route('anggotas.store') }}" method="POST">
                 @csrf
-
-                <div class="mb-3">
-                    <label class="form-label">Nama Lengkap</label>
-                    <input type="text" name="nama" class="form-control"
-                           value="{{ old('nama') }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Alamat</label>
-                    <textarea name="alamat" class="form-control"
-                              rows="3" required>{{ old('alamat') }}</textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Nomor Telepon</label>
-                    <input type="text" name="no_telepon" class="form-control"
-                           value="{{ old('no_telepon') }}" maxlength="15" required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label">Tanggal Bergabung</label>
-                    <input type="date" name="tanggal_bergabung" class="form-control"
-                           value="{{ old('tanggal_bergabung') }}" required>
-                </div>
-
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">
-                        Simpan Anggota
-                    </button>
-                    <a href="{{ route('anggota.index') }}" class="btn btn-secondary">
-                        Kembali
-                    </a>
-                </div>
+                @include('Anggota._form')
             </form>
         </div>
     </div>
 </div>
-
-</body>
-</html>
+@endsection

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Anggota;
 
 class Simpanan extends Model
 {
@@ -10,9 +11,10 @@ class Simpanan extends Model
 
     protected $fillable = [
         'anggota_id',
-        'tanggal_simpanan',
-        'jumlah',
+        'nama_anggota',
         'jenis_simpanan',
+        'jumlah',
+        'tanggal_simpanan',
     ];
 
     public function anggota()
