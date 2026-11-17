@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -154,6 +155,18 @@
 
                             <i class="nav-icon fas fa-hand-holding-usd"></i>
                             <p>Pinjaman</p>
+
+                        </a>
+                    </li>
+
+
+                    <!-- Angsuran -->
+                    <li class="nav-item">
+                        <a href="{{ route('angsurans.index') }}"
+                           class="nav-link {{ request()->routeIs('angsurans.*') ? 'active' : '' }}">
+
+                            <i class="nav-icon fas fa-money-bill-wave"></i>
+                            <p>Angsuran</p>
 
                         </a>
                     </li>

@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PinjamanController;
+use App\Http\Controllers\AngsuranController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -64,6 +66,9 @@ Route::middleware('auth')->group(function () {
 
     // Data Pinjaman
     Route::resource('pinjaman', PinjamanController::class);
+
+    // Data Angsuran
+    Route::resource('angsurans', AngsuranController::class);
 
     // Khusus admin
     Route::middleware('role:admin')->group(function () {

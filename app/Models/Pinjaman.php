@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pinjaman extends Model
 {
@@ -44,5 +44,10 @@ class Pinjaman extends Model
     public function pengurus(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function angsurans(): HasMany
+    {
+        return $this->hasMany(Angsuran::class, 'pinjaman_id');
     }
 }
